@@ -2,73 +2,81 @@
 #define Z3_H
 
 #include <iostream>
-//#include <stdexcept> // dla wyjątków
+//#include <stdexcept> // wyjątki
 
 namespace cpplab {
 
     template<typename T>
-    class vector {
+    class wektor {
     public:
-        T* arr;       // Wskaźnik na dynamiczną tablicę przechowującą elementy
-        int capacity; // Pojemność wektora (maksymalna liczba elementów, które może pomieścić)
-        int current;  // Aktualna liczba elementów w wektorze
+        T* tablica;       // tablica
+        int pojemnosc;    // pojemność
+        int ilosc;        // aktualna liczba elementów
 
         // Konstruktor domyślny
-        vector() {
-            arr = new T[1];   // Początkowo wektor ma miejsce na 1 element
-            capacity = 1;     // Pojemność wynosi 1
-            current = 0;      // Aktualnie nie ma żadnych elementów
+        wektor() {
+            tablica = new T[1];   // Miejsce na 1 element
+            pojemnosc = 1;        // Pojemność 1
+            ilosc = 0;            // Brak elementów
         }
 
-        // Destruktor do zwolnienia pamięci
-        ~vector() {
-            delete[] arr; // Zwolnienie pamięci dynamicznie alokowanej
+        // Destruktor
+        ~wektor() {
+            delete[] tablica; // Zwolnienie pamięci
         }
 
-        // Metoda dodająca element na koniec wektora
-        void push_back(const T& data) {
-            // Jeśli tablica jest pełna, zwiększamy pojemność dwukrotnie
-            if (current == capacity) {
-                T* temp = new T[2 * capacity]; // Nowa tablica o dwukrotnie większej pojemności
+        // Dodanie elementu
+        void dodaj(const T& dane) {
+            // Jeśli pełny, zwiększ pojemność
+            if (ilosc == pojemnosc) {
+                T* tymczasowy = new T[2 * pojemnosc]; // Nowa, większa tablica
 
-                // Kopiowanie elementów do nowej tablicy
-                for (int i = 0; i < capacity; i++) {
-                    temp[i] = arr[i];
+                // Kopiowanie danych
+                for (int i = 0; i < pojemnosc; i++) {
+                    tymczasowy[i] = tablica[i];
                 }
 
                 // Zwolnienie starej tablicy
-                delete[] arr;
-                capacity *= 2; // Zwiększenie pojemności
-                arr = temp;    // Ustawienie wskaźnika na nową tablicę
+                delete[] tablica;
+                pojemnosc *= 2; // Zwiększ pojemność
+                tablica = tymczasowy; // Ustaw nową tablicę
             }
 
-            // Dodanie nowego elementu na koniec
-            arr[current] = data;
-            current++;
+            // Dodaj nowy element
+            tablica[ilosc] = dane;
+            ilosc++;
         }
 
-        // Metoda dostępu do elementu (operator [])
-        T& operator[](int index) {
-            if (index >= current || index < 0) {
-                throw std::out_of_range("Index out of range");
+        // Dostęp do elementu (operator [])
+        T& operator[](int indeks) {
+            if (indeks >= ilosc || indeks < 0) {
+                throw std::out_of_range("Indeks poza zakresem");
             }
-            return arr[index];
+            return tablica[indeks];
         }
 
-        // Zwrócenie liczby elementów w wektorze
-        int size() const {
-            return current;
+        // Dodajemy wersję const operator[] dla obiektów stałych
+        const T& operator[](int indeks) const {
+            if (indeks >= ilosc || indeks < 0) {
+                throw std::out_of_range("Indeks poza zakresem");
+            }
+            return tablica[indeks];
         }
 
-        // Zwrócenie pojemności wektora
-        int get_capacity() const {
-            return capacity;
+        // Zwrócenie liczby elementów
+        int rozmiar() const {
+            return ilosc;
         }
 
-        // Wypisywanie zawartości wektora
-        void print() const {
-            for (int i = 0; i < current; i++) {
-                std::cout << arr[i] << " ";
+        // Zwrócenie pojemności
+        int zdobadz_pojemnosc() const {
+            return pojemnosc;
+        }
+
+        // Wypisanie zawartości
+        void wypisz() const {
+            for (int i = 0; i < ilosc; i++) {
+                std::cout << tablica[i] << " ";
             }
             std::cout << std::endl;
         }
