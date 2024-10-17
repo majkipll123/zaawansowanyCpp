@@ -1,7 +1,7 @@
 #include "z3.h"
 #include <vector>
 #include <iostream>
-#include <functional>
+
 
 template<typename T, typename C>
 T my_max(T a, T b, C comp) {
@@ -66,6 +66,6 @@ int main() {
 
     
     std::vector<int> vec2 = { 1, 2, 3 };
-    int wynik_mnozenia = w * vec2;  // Mnożenie skalarne
+    int wynik_mnozenia = w * vec2;  // Mnożenie skalarne 
     std::cout << "Iloczyn skalarny " << wynik_mnozenia << std::endl;
 }
