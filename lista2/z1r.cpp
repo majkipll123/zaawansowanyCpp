@@ -25,7 +25,7 @@ void insertion_sort(std::vector<T>& vec) {
 // Funkcja porównująca dwa napisy w porządku naturalnym
 bool natural_compare(const std::string& a, const std::string& b) {
     size_t i = 0, j = 0;
-    while (i < a.size() && j < b.size()) {
+    while (i < a.size() && j < b.size()) { 
         // Sprawdź, czy mamy liczby w obu napisach
         if (std::isdigit(a[i]) && std::isdigit(b[j])) {
             // Parsujemy liczby
@@ -76,7 +76,7 @@ void print_vector(const std::vector<T>& vec) {
 }
 
 int main() {
-    std::vector<std::string> files = {"mirokox14","natu1ralsigma18","natu2ralsigma18","szczeryogon72","DaddyTateTo1B","1","10","21","2","1000x","mirokox13"};
+    std::vector<std::string> files = {"mirokox14","natu1ralsigma18","natu2ralsigma18","szczeryogon72","DaddyTateTo1B","RNTTo1B","1","10","21","2","1000x","mirokox13"};
 
     std::cout << "Przed sortowaniem (files): ";
     print_vector(files);
