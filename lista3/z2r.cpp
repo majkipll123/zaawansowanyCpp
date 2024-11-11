@@ -15,12 +15,12 @@ void as_sorted_view(const std::vector<T>& vec) {
     for (const auto& element : sorted_vec) {
         std::cout << element << " ";
     }
-    std::cout << std::endl;
+    std::cout << "\n";
 }
 
 int main() {
     // Test dla wektora int
-    std::vector<int> vec1 = {5, 2, 8, 1, 4};
+    std::vector<int> vec1 = {5, 2, 8, 1, 4, 12, 11, 456};
     std::cout << "Oryginalny wektor: ";
     for (const auto& elem : vec1) {
         std::cout << elem << " ";
@@ -29,7 +29,7 @@ int main() {
     as_sorted_view(vec1);
 
     // Test dla wektora typu double
-    std::vector<double> vec2 = {3.1, 1.4, 2.2, 5.9, 0.8};
+    std::vector<double> vec2 = {3.1, 1.4, 2.2, 5.9, 0.8, 314, 3.14};
     std::cout << "Oryginalny wektor: ";
     for (const auto& elem : vec2) {
         std::cout << elem << " ";
@@ -38,7 +38,7 @@ int main() {
     as_sorted_view(vec2);
 
     // Test dla wektora std::string
-    std::vector<std::string> vec3 = {"apple", "orange", "banana", "grape"};
+    std::vector<std::string> vec3 = {"giga", "wolf", "btc", "eth"};
     std::cout << "Oryginalny wektor: ";
     for (const auto& elem : vec3) {
         std::cout << elem << " ";

@@ -48,7 +48,7 @@ public:
             std::cout << current->data << " ";
             current = current->next.get();
         }
-        std::cout << std::endl;
+        std::cout << "\n";
     }
 };
 
