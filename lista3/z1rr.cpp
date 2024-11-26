@@ -2,13 +2,32 @@
 #include <vector>
 #include <string>
 #include <type_traits>
+#include <concepts>
 
-// Koncept do sprawdzenia, czy typy można mnożyć i dodawać, aby uzyskać wynik skalarny
-template <typename T, typename U>
-concept ScalarMultiplicable = requires(T a, U b) {
-    { a * b } -> std::convertible_to<T>;   // Sprawdzenie, czy a * b jest poprawne i daje wynik typu T
-    { T{} + (a * b) } -> std::convertible_to<T>; // Sprawdzenie, czy można dodać iloczyny
+// Koncept sprawdzający, czy typ posiada operator nawiasów kwadratowych []
+template <typename T>
+concept HasSubscriptOperator = requires(T a) {
+    { a[0] };  // Sprawdza, czy można uzyskać dostęp do elementu za pomocą a[0]
 };
+
+// Koncept sprawdzający, czy typy T i U są liczbowe
+template <typename T, typename U>
+concept AreArithmetic = std::is_arithmetic_v<T> && std::is_arithmetic_v<U>;
+
+// Koncept sprawdzający, czy typ ma metodę size()
+template <typename T>
+concept HasSizeMethod = requires(T a) {
+    { a.size() } -> std::convertible_to<std::size_t>;
+};
+
+// Koncept do sprawdzenia, czy można wykonać mnożenie skalarne na dwóch typach
+template <typename T, typename U>
+concept ScalarMultiplicable = 
+    HasSubscriptOperator<T> && // Sprawdzanie indeksowania []
+    HasSubscriptOperator<U> && // Sprawdzanie indeksowania []
+    AreArithmetic<typename T::value_type, typename U::value_type> && // Sprawdzanie typów liczbowych
+    HasSizeMethod<T> && // Sprawdza, czy typ T ma metodę size()
+    HasSizeMethod<U>;   // Sprawdza, czy typ U ma metodę size()
 
 namespace cpplab {
     template<typename T>
@@ -45,21 +64,15 @@ namespace cpplab {
 // Operator mnożenia skalarnego z użyciem konceptu ScalarMultiplicable
 template <typename T, typename U>
 requires ScalarMultiplicable<T, U>
-T operator*(const cpplab::vector<T>& v1, const std::vector<U>& v2) {
-    T result = 0;
-    size_t min_size = std::min(v1.get_size(), static_cast<int>(v2.size()));
+auto operator*(const T& v1, const U& v2) {
+    using ResultType = typename T::value_type;  // Typ wyniku zgodny z typem elementów v1
+    ResultType result = 0;
+    size_t min_size = std::min(v1.size(), v2.size());
 
     for (size_t i = 0; i < min_size; ++i) {
         result += v1[i] * v2[i];
     }
     return result;
-}
-
-// Operator mnożenia skalarnego w odwrotnej kolejności argumentów
-template <typename T, typename U>
-requires ScalarMultiplicable<T, U>
-T operator*(const std::vector<U>& v2, const cpplab::vector<T>& v1) {
-    return v1 * v2;
 }
 
 int main() {
