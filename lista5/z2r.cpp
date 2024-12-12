@@ -90,24 +90,23 @@ public:
     T* operator->() const { return ptr; }
 };
 
-} // namespace cpplab
+} 
 
-// Przykład użycia
 int main() {
     // Przykład cpplab::unique_ptr
     cpplab::unique_ptr<int> uptr(new int(42));
-    std::cout << "Value: " << *uptr << std::endl;
+    std::cout << "Value: " << *uptr << "\n";
 
     // Przykład cpplab::non0_ptr
     try {
-        cpplab::non0_ptr<int> nptr(nullptr); // To spowoduje wyjątek
+        cpplab::non0_ptr<int> nptr(nullptr); // wyjątek 
     } catch (const std::invalid_argument& e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
+        std::cerr << "Exception: " << e.what() << "\n";
     }
 
     int value = 10;
     cpplab::non0_ptr<int> nptr(&value);
-    std::cout << "Non0_ptr Value: " << *nptr << std::endl;
+    std::cout << "Non0_ptr Value: " << *nptr << "\n";
 
     return 0;
 }

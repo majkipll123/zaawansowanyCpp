@@ -25,6 +25,22 @@ private:
         print_in_order(node->right.get()); // Odwiedzanie prawego poddrzewa
     }
 
+    // Funkcja pomocnicza do print_pre_order
+    void print_pre_order(const Node* node) const {
+        if (!node) return;
+        std::cout << node->value << " "; 
+        print_pre_order(node->left.get()); 
+        print_pre_order(node->right.get()); 
+    }
+
+    // Funkcja pomocnicza do print_post_order
+    void print_post_order(const Node* node) const {
+        if (!node) return;
+        print_post_order(node->left.get()); 
+        print_post_order(node->right.get()); 
+        std::cout << node->value << " "; 
+    }
+
 public:
     BST() : root(nullptr) {}
 
@@ -59,6 +75,18 @@ public:
         print_in_order(root.get());
         std::cout << "\n";
     }
+
+    // Wypisywanie elementów w porządku "korzeń - lewe poddrzewo - prawe poddrzewo"
+    void print_pre_order() const {
+        print_pre_order(root.get());
+        std::cout << "\n";
+    }
+
+    // Wypisywanie elementów w porządku "lewe poddrzewo - prawe poddrzewo - korzeń"
+    void print_post_order() const {
+        print_post_order(root.get());
+        std::cout << "\n";
+    }
 };
 
 // Przykład użycia
@@ -74,6 +102,12 @@ int main() {
 
     std::cout << "In-order traversal: ";
     tree.print_in_order();
+
+    std::cout << "Pre-order traversal: ";
+    tree.print_pre_order();
+
+    std::cout << "Post-order traversal: ";
+    tree.print_post_order();
 
     return 0;
 }
