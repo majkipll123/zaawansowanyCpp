@@ -36,15 +36,21 @@ int main() {
     t1.join();
     t2.join();
 
-    // Wyświetlenie pierwszych 500 elementów po sortowaniu połowy
+    /* Wyświetlenie pierwszych 500 elementów po sortowaniu połowy
     std::cout << "Po sortowaniu połówek pierwszej czesci wektora \n" ;
     std::copy(vec.begin(), vec.begin() + 500, std::ostream_iterator<int>(std::cout, " "));
     std::cout << "\n";
-    
+    poprzednia wersja gorzej sie czytało w konsolecie teraz chyba lepiej
     
     // Wyświetlenie drugich 500 elementów po sortowaniu połowy
     std::cout << "Po sortowaniu połówek drugiej czesci wektora \n" ;
     std::copy(vec.begin()+500, vec.begin() + 1000, std::ostream_iterator<int>(std::cout, " "));
+    std::cout << "\n";
+    */
+
+    // Wyświetlenie całego wektora
+    std::cout << "Po sortowaniu połówek drugiej czesci wektora \n" ;
+    std::copy(vec.begin(), vec.begin() + 1000, std::ostream_iterator<int>(std::cout, " "));
     std::cout << "\n";
 
     return 0;
